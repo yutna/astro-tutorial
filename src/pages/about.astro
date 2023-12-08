@@ -1,17 +1,22 @@
 ---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 import "../styles/global.css";
 
 const pageTitle = "About Me";
+
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
 const identity = {
   firstName: "Sarah",
   country: "Canada",
   occupation: "Technical Writer",
   hobbies: ["photography", "birdwatching", "baseball"],
 };
-const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+
 const happy = true;
 const finished = false;
 const goal = 3;
+
 const skillColor = "navy";
 const fontWeight = "bold";
 const textCase = "uppercase";
@@ -38,9 +43,7 @@ const textCase = "uppercase";
     </style>
   </head>
   <body>
-    <a href="/astro-tutorial/">Home</a>
-    <a href="/astro-tutorial/about/">About</a>
-    <a href="/astro-tutorial/blog/">Blog</a>
+    <Header />
 
     <h1>{pageTitle}</h1>
     <h2>... and my new Astro site!</h2>
@@ -85,5 +88,11 @@ const textCase = "uppercase";
         <p>My goal is not 3 days.</p>
       )
     }
+
+    <Footer />
+
+    <script>
+      import "../scripts/menu.js";
+    </script>
   </body>
 </html>
