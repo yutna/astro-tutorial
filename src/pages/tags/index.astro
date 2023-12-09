@@ -1,25 +1,27 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
+import _ from "lodash-es";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const { frontmatter } = Astro.props;
+const pageTitle = "Tag Index";
+const allPosts = await Astro.glob("../posts/*.md");
+const uniqueTags = _.chain(allPosts)
+  .map("frontmatter.tags")
+  .flatten()
+  .uniq()
+  .sort()
+  .value();
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
-  <p>Published on: {frontmatter.pubDate.slice(0, 10)}</p>
-  <p><em>{frontmatter.description}</em></p>
-  <p>Written by {frontmatter.author}</p>
-  <img alt={frontmatter.image.alt} src={frontmatter.image.url} width="300" />
+<BaseLayout pageTitle={pageTitle}>
   <div class="tags">
     {
-      frontmatter.tags.map((tag) => (
+      uniqueTags.map((tag) => (
         <p class="tag">
           <a href={`/astro-tutorial/tags/${tag}`}>{tag}</a>
         </p>
       ))
     }
   </div>
-
-  <slot />
 </BaseLayout>
 
 <style>

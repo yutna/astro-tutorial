@@ -1,0 +1,41 @@
+---
+import _ from "lodash-es";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob("../posts/*.md");
+  const uniqueTags = _.chain(allPosts)
+    .map("frontmatter.tags")
+    .flatten()
+    .sort()
+    .uniq()
+    .value();
+
+  return uniqueTags.map((tag) => {
+    const posts = _.filter(allPosts, (post) =>
+      post.frontmatter.tags.includes(tag),
+    );
+
+    return {
+      params: { tag },
+      props: { posts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={tag}>
+  <p>Posts tagged with {tag}</p>
+  <ul>
+    {
+      posts.map((post) => (
+        <BlogPost title={post.frontmatter.title} url={post.url} />
+      ))
+    }
+  </ul>
+</BaseLayout>
