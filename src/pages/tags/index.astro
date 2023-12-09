@@ -1,11 +1,13 @@
 ---
+import { getCollection } from "astro:content";
 import _ from "lodash-es";
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const pageTitle = "Tag Index";
-const allPosts = await Astro.glob("../posts/*.md");
+const allPosts = await getCollection("posts");
 const uniqueTags = _.chain(allPosts)
-  .map("frontmatter.tags")
+  .map("data.tags")
   .flatten()
   .uniq()
   .sort()
