@@ -12,7 +12,7 @@ export async function GET(context) {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
-      link: `/astro-tutorial/posts/${post.slug}/`,
+      link: `/posts/${post.slug}/`,
     })),
     customData: `<language>en-us</language>`,
   });

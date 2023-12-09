@@ -10,13 +10,13 @@ const { frontmatter } = Astro.props;
   <p transition:animate={fade({ duration: "2s" })}>
     <em>{frontmatter.description}</em>
   </p>
-  <p>Written by <a href="/astro-tutorial/about">{frontmatter.author}</a></p>
+  <p>Written by <a href="/about">{frontmatter.author}</a></p>
   <img alt={frontmatter.image.alt} src={frontmatter.image.url} width="300" />
   <div class="tags">
     {
       frontmatter.tags.map((tag) => (
         <p class="tag">
-          <a href={`/astro-tutorial/tags/${tag}`}>{tag}</a>
+          <a href={`/tags/${tag}`}>{tag}</a>
         </p>
       ))
     }
